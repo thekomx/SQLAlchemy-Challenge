@@ -79,9 +79,10 @@ def date_range(start, end=''):
         start = dt.datetime.strptime(start, '%Y-%m-%d')
         if end != '':
             end = dt.datetime.strptime(end, '%Y-%m-%d')
+            if start > end:
+                start, end = end, start
     except ValueError:
         err_msg = 'Incorrect date format!<br>"YYYY-MM-DD" format only.<br>Please try again.'
-
 
     if err_msg != '':
         return_value = err_msg
