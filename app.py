@@ -17,7 +17,7 @@ def index():
     rtn_text +=' - /api/v1.0/precipitation<br>'
     rtn_text +=' - /api/v1.0/stations<br>'
     rtn_text +=' - /api/v1.0/tobs<br>'
-    rtn_text +=' - /api/v1.0/<br>'
+    rtn_text +=' - /api/v1.0/start-date or start-date/end-date'
 
     return rtn_text
 
@@ -94,11 +94,7 @@ def date_range(start, end=''):
         if end != '':
             tobs_describe = tobs_describe.filter(func.date(Measurement.date) <= end)
 
-        tobs_describe_dict = []
-        for td in tobs_describe:
-            tobs_describe_dict.append({'TMIN' : td.min, 'TMAX' : td.max, 'TAVG' : td.avg})
-
-        return_value = jsonify(tobs_describe_dict)
+        return_value = jsonify({'TMIN' : tobs_describe[0].min, 'TMAX' : tobs_describe[0].max, 'TAVG' : tobs_describe[0].avg})
 
     return return_value
 
